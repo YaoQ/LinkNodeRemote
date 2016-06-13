@@ -13,8 +13,9 @@ decode_results results;
 IRsend irsend(5);
 
 /***************************************IoT********************************************/ 
-String deviceID="000000003f";
-String apikey="89d20a92-6ecd-4f0a-a147-d785d0273ca5";
+/*Replace your own deviceID and apikey*/
+String deviceID="xxxxxxxxxx";
+String apikey="xxxxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx";
 WiFiClient client;
 const char* server = "www.linksprite.io";
 
