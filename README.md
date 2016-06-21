@@ -1,52 +1,92 @@
-### 准备材料
-* LinkNode D1 x 1   
+# Remote controller kit
+Recently, we have developed an open source remote controller which includes LinkNode D1 and Infrared shield. Users can take this remote controller and android APP to control home appliances like TV, air conditioner which can replace the IR controller.
+
+![](picture/d1.jpg)
+
+## Features
+- [LinkNode D1](http://www.linksprite.com/wiki/index.php5?title=LinkNode_D1)
+- [Infrared Shield](http://www.linksprite.com/wiki/index.php5?title=Infrared_Shield_for_Arduino)
+- Connecting to LinkSpriteIO IoT cloud server
+- Learning Infrared encoding
+
+## Tutorial
+### 1. Prerequisites
+
+**Hardware**
+* LinkNode D1 x 1
 * Infrared Shield x 1  
-* 带遥控器的设备 x 1
+* One home appliance supporting IR remote control
 
-### 注册登录[LinkSprite.io](www.linksprite.com)
-网页进入www.linksprite.io注册一个账号，并登录，在自己的账号下面建一个DIY设备，设备类型为00(Custom device type),设备分组为Remote，设备名可以自己DIY。   
-* 注册[www.linksprite.io](www.linksprite.com)
-* 登录此账号  
-* 创建一个设备
-* 获取apikey
-* 获取deviceID   
-![注册LinkSprite设备](picture/1.png)  
-![获取deviceID](picture/2.png)  
-![获取apikey](picture/3.png)  
+**Software**
+* Arduino IDE 1.6.8 with ESP8266 Arduino core
+
+### 2. Basic working flow
+1. Login **linksprite.io** and create a remote device on the platform
+2. Makers program the reference Arduino project to LinkNode D1 and let it connect to LinkSpriteIO 
+3. APP will connect to LlinkSpriteIO and list the Remote device
+4. Learn the infrared encoding from your IR remote controller
+5. Use APP to control your home appliance
+
+![](picture/blocks.png)
+
+### 3. Details
+
+#### a. Login [LinkSprite.io](www.linksprite.com)
+- Go to **My devices --> Create DIY device**
+- Create new device:
+	* Device Name: any name
+	* Device Type: **00(Custom Device type)**
+	* Group Name : **Remote**
+
+![](picture/1.png)  
+
+- Open the new created Device and get DeviceID
+
+![](picture/2.png) 
+
+- Go to My profile to get your own API key.
+
+![](picture/3.png)  
  
-### github获取代码
-将github上获取的到文件夹放到Arduino IDE编译工具文件夹目录下的libraries目录下。打开Aeduin IDE工具选择我们刚刚添加的库目录下的D1_remote打开，修改相应的deviceID和apikey.
-* 获取代码
-* 放到Arduino ID的librarys目录
-* 修改deviceID和apikey
-* 连接LinkNode D1与PC
-* 编译上传程序至LinkNode D1
+### b. Download the source code from github
+- Download the source code from github and put the **IRremoteESP8266-master** folder to your (Arduino IDE PATH)/libraries directory
+- Open Arduino IDE and make sure you have installed the ESP8266 hardware packages, details you can check [here](http://www.linksprite.com/wiki/index.php5?title=LinkNode_D1)
+- Go to File->Examples->IRremoteESP8266-->LinkNodeRemote and open it
 
-### github获取app并录入一个遥控器  
-* 获取APP
-* 账户登陆
-* Linksprite设备管理
-* 遥控器管理
-* 遥控器录入、使用
+![](picture/lib.png)
 
-1. 下载地址  
-安卓app可以在github直接获取  
+- Update your own apikey and deviceID
 
-2. 下载安装后打开软件登陆账户，账户是前面在linksprite.io注册的账户。如图所示：  
-![用户登陆](picture/5.png)   
+![](picture/key.png)
 
-3. 登陆成功后,进入Linksprite设备列表，此时便可以看到我们在前面注册的设备了。  
-![Linksprite设备列表](picture/6.png)   
+- Program this project to LinkNode D1.
 
-4. 点击这个设备，显示遥控器列表，可以添加遥控器设备，长按遥控器列表，可对遥控器的备注进行修改。   
-![Linksprite设备遥控器管理](picture/8.png)
 
-5. 选择一个按钮长按，此时遥控器对这LinkNode D1，按下相应的遥控器按键，此时便会录入相应的按键，录入成功App的按钮会被高亮。 
-![遥控器录入、使用](picture/9.png)  
+### c. Download and install Android APP
+- Download the Android APP file from [github](https://github.com/YaoQ/LinkNodeRemote)
+- Use your account to sign in linksprite.io
+![](picture/5.png)    
 
-6. 按照上述的方法我们可以录入一个遥控器，然后我们的遥控器就会复制到我们的手机上了，此时试试我们的新遥控器吧。  
+- After that APP will list the device group which we create before
 
-### 备注
-遥控器的app我们还提供了可以注册官方设备，利用的是扫描二维码添加注册设备。
-![遥控器录入、使用](picture/7.png)    
-现在我们的遥控器只支持几个厂家的遥控器设备的录入，当然这也是可以自己添加的，如果没有你想要的厂商遥控器，你只需要查相应厂商遥控器的信息在IRremoteESP8266.cpp，IRremoteESP8266.h，LinkNodeRemote.ino修改相应的代码，这个部分我们暂时不容易修改，后续还会更新。尽请期待！
+![](picture/6.png)   
+
+- Click this device group, and add remote device
+
+![](picture/8.png)
+
+- Choose a button on the APP, press it and hold on
+- At the same time, press corresponding button on your IR remote controller
+- The LinkNode D1 will record this button's infrared encoding, then send a signal to tell APP, it has already get this button's infrared encoding!
+- APP will highlight this button. If you want to learn more button, repeat the steps above
+- After all, you can click button on APP to send command to LinkNode D1 via linkspriteIO
+- LinkNode D1 will resend the infrared signal which is recorded before
+
+![](picture/9.png)  
+
+Using this open source Remote controller and APP, the IR controller of home appliance should be completely replaced.
+
+Enjoy it!
+
+## Ref
+1. [Install ESP8266 hardware core for Arduino IDE ](http://www.linksprite.com/wiki/index.php5?title=LinkNode_D1)
