@@ -65,7 +65,8 @@ Recently, we have developed an open source remote controller which includes Link
 ### c. Download and install Android APP
 - Download the Android APP file from [github](https://github.com/YaoQ/LinkNodeRemote)
 - Use your account to sign in linksprite.io
-![](picture/5.png)    
+
+![](picture/4.png)    
 
 - After that APP will list the device group which we create before
 
